@@ -1,0 +1,185 @@
+
+import discord
+import os
+from discord.ext import commands
+
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+reciclaveis = [
+    "papel",
+    "papelão",
+    "jornal",
+    "revista",
+    "caixa de papel",
+    "garrafa pet",
+    "pote plástico",
+    "sacola plástica",
+    "lata de alumínio",
+    "latinha",
+    "lata de aço",
+    "garrafa de vidro",
+    "pote de vidro",
+    "frasco de vidro",
+    "embalagem longa vida",
+    "caixa de leite",
+    "caixa de suco"
+]
+
+nao_reciclaveis = [
+    "papel higiênico usado",
+    "guardanapo sujo",
+    "papel engordurado",
+    "papel carbono",
+    "papel de bala metalizado",
+    "fralda descartável",
+    "absorvente",
+    "fio dental",
+    "esponja de cozinha",
+    "cerâmica",
+    "porcelana",
+    "espelho",
+    "etiqueta adesiva",
+    "papel plastificado",
+    "bituca de cigarro",
+    "louça quebrada"
+]
+
+lixeira_azul = [
+    "papel",
+    "papelão",
+    "jornal",
+    "revista",
+    "caixa de papel"
+]
+
+lixeira_vermelha = [
+    "garrafa pet",
+    "plástico",
+    "sacola plástica",
+    "pote plástico"
+]
+
+lixeira_amarela = [
+    "lata",
+    "alumínio",
+    "ferro",
+    "latinha"
+]
+
+lixeira_verde = [
+    "vidro",
+    "garrafa de vidro",
+    "pote de vidro"
+]
+
+lixo_toxico = [
+    "pilha",
+    "bateria",
+    "bateria de celular",
+    "bateria de notebook",
+    "lâmpada fluorescente",
+    "termômetro de mercúrio",
+    "tinta",
+    "solvente",
+    "óleo de motor",
+    "veneno",
+    "agrotóxico",
+    "produto químico",
+    "medicamento vencido",
+    "inseticida",
+    "aerossol"
+]
+
+lixo_nao_toxico = [
+    "papel",
+    "papelão",
+    "jornal",
+    "revista",
+    "garrafa pet",
+    "sacola plástica",
+    "lata",
+    "alumínio",
+    "garrafa de vidro",
+    "pote de vidro",
+    "casca de banana",
+    "resto de comida",
+    "folhas secas",
+    "caixa de papel"
+]
+
+@bot.event
+async def on_ready():
+    print(f'Estamos logados como {bot.user}')
+
+@bot.command()
+async def verificar_lixeira(ctx, *, texto):
+    
+
+    texto = texto.lower().strip()
+
+    if texto in lixeira_azul:
+        await ctx.send("📘 O item vai para a lixeira azul!")
+
+    elif texto in lixeira_vermelha:
+        await ctx.send("🔴 O item vai para a lixeira vermelha!")
+
+    elif texto in lixeira_amarela:
+        await ctx.send("🟡 O item vai para a lixeira amarela!")
+
+    elif texto in lixeira_verde:
+        await ctx.send("🟢 O item vai para a lixeira verde!")
+
+    else:
+        await ctx.send("❌ Item não encontrado nas lixeiras!")
+
+@bot.command()
+async def elemento_toxico(ctx,*, texto_toxico):
+
+    
+
+
+    texto_toxico = texto_toxico.lower().strip()
+
+    if texto_toxico in lixo_toxico:
+        await ctx.send("☣️ O item é tóxico e deve ser descartado corretamente!")
+
+    if texto_toxico in lixo_nao_toxico:
+        await ctx.send("✅ O item não é tóxico e pode ser descartado normalmente!")
+
+
+@bot.command()
+async def reciclavel(ctx, *, texto_reciclavel):
+    if mensagem.author.bot:
+        return
+
+    texto_reciclavel = texto_reciclavel.lower().strip()
+
+    if texto_reciclavel in reciclavei:
+        await ctx.send("♻️ O item é reciclável e deve ser descartado na lixeira correta!")
+
+    if texto_reciclavel in nao_reciclaveis:
+        await ctx.send("❌ O item não é reciclável e deve ser descartado corretamente!")
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+@bot.command()
+async def lixeira(ctx):
+    caminho = os.path.join(BASE_DIR, "lixeira.png")
+
+    arquivo = discord.File(caminho)
+    await ctx.send(file=arquivo)
+
+
+
+    
+
+
+
+
+
+bot.run("SEU TOKEN")
